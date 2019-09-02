@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <title>Visalle</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        img {
+            height: 100px;
+        }
+
+        #liste {
+            width: 70vw;
+            margin: auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-gap: 1px;
+        }
+
+        .person {
+            background-color: #ddd;
+            padding: 20px;
+        }
+
+        .menu {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .valgt {
+            background-color: red;
+        }
+
+        h1 {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <template id="theTemplate">
+        <article class="person">
+            <h2></h2>
+            <img class="billede" src="" alt="">
+            <p>Github: <a class="github" href=""></a></p>
+
+        </article>
+
+    </template>
+
+    <h1>Alle</h1>
+    <nav class="menu">
+        <button class="filter valgt" data-køn="alle" data-hold="alle">Alle</button>
+        <button class="filter" data-køn="k" data-hold="alle">Kvinder</button>
+        <button class="filter" data-køn="m" data-hold="alle">Mænd</button>
+        <button class="filter" data-køn="andet" data-hold="alle">Andet</button>
+        <button class="filter" data-køn="m" data-hold="a">Mænd på hold A</button>
+
+    </nav>
+
+    <section id="liste"></section>
+
+
+    <script>
+        let personer;
+        const dest = document.querySelector("#liste");
+        const theTemplatePointer = document.querySelector("#theTemplate");
+        let filterKøn = "alle";
+        let filterHold = "alle";
+        document.addEventListener("DOMContentLoaded", getJson);
+
+
+        async function getJson() {
+            let jsonData = await fetch("https://spreadsheets.google.com/feeds/list/1Xge7slZ9dEOTCn1Yxl3OE4xgvrXOL8Y_iu3WN1yGB1U/od6/public/values?alt=json");
+            personer = await jsonData.json();
+            visPersoner();
+            addEventListenersToButtons();
+        }
+
+        function visPersoner() {
+            dest.innerHTML = "";
+            personer.feed.entry.forEach(person => {
+                if ((filterKøn == "alle" || filterKøn == person.gsx$køn.$t) && (filterHold == "alle" || filterHold == person.gsx$hold.$t)) {
+                    const theClone = theTemplatePointer.cloneNode(true).content;
+                    theClone.querySelector("h2").textContent = person.gsx$navn.$t;
+                    theClone.querySelector(".billede").src = person.gsx$billede.$t;
+                    theClone.querySelector(".billede").alt = person.gsx$navn.$t;
+                    theClone.querySelector(".github").href = `http://github.com/${person.gsx$github.$t}`;
+                    theClone.querySelector(".github").textContent = `http://github.com/${person.gsx$github.$t}`;
+
+                    dest.appendChild(theClone);
+
+                }
+
+            })
+        }
+
+        function addEventListenersToButtons() {
+            document.querySelectorAll(".filter").forEach(elm => {
+                elm.addEventListener("click", filtrering);
+            })
+        }
+
+        function filtrering() {
+            filterKøn = this.getAttribute("data-køn");
+
+
+            filterHold = this.getAttribute("data-hold");
+
+
+            document.querySelector("h1").textContent = this.textContent;
+            document.querySelectorAll(".filter").forEach(elm => {
+                elm.classList.remove("valgt");
+            });
+            this.classList.add("valgt");
+            visPersoner();
+        }
+    </script>
+</body>
+</html>

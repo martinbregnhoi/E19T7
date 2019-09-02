@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        article {
+            border: 1px solid #000;
+            padding: 1rem;
+            margin: 1rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <article>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat, neque, illo. Consequuntur labore aliquid animi eius, obcaecati asperiores adipisci hic sed ducimus odio eos exercitationem pariatur praesentium possimus aspernatur, sapiente.</article>
+    <article class="red">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo rem harum, neque eveniet quis? Mollitia autem, enim tempora ex, corporis necessitatibus eaque fugit harum, maxime reiciendis asperiores eligendi, possimus dolorum!</article>
+    <article>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod repellat dolore modi aut architecto repudiandae, sequi ex cumque ipsum eius! Quam impedit, dolore excepturi rerum nobis quasi ipsum veritatis explicabo.</article>
+    <article>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae officia architecto, rerum, placeat tempora modi vero similique aspernatur ea eaque laudantium, aliquid aut earum ipsam odio est natus minus, commodi!</article>
+    <article class="red">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur odit, consequuntur ea unde facilis earum dolores excepturi hic, optio repellat dolorem numquam sed! Cupiditate iusto esse, eius pariatur, aliquam soluta.</article>
+
+</body>
+<script>
+
+    const uv = ["martin", "Klaus", "Kamilla", "Alan"];
+
+    console.log(uv[2]);
+
+const alleElementer = document.querySelectorAll(".red");
+
+console.log(alleElementer);
+
+    alleElementer.forEach(element=>{
+
+        console.log(element);
+        element.style.backgroundColor = "#456";
+    })
+
+
+
+</script>
+</html>

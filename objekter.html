@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+
+        img{
+
+            width:100%;
+        }
+
+        .modtager{
+            display:grid;
+            grid-template-columns:repeat(auto-fill, minmax(300px,1fr));
+            grid-gap: 10px;
+            max-width: 960px;
+            margin: 0 auto;
+        }
+
+        article{
+            border:1px solid #999;
+
+        }
+        article:nth-child(odd){
+            background: #999;
+
+        }
+/*
+        @media screen and (min-width:600px){
+            .modtager{
+          grid-template-columns: repeat(2,1fr);
+            }
+        }
+          @media screen and (min-width:1000px){
+            .modtager{
+          grid-template-columns: repeat(4,1fr);
+            }
+        }
+*/
+    </style>
+
+</head>
+
+<body>
+    <template>
+        <article>
+            <h1></h1>
+            <p class="email"></p>
+            <img src="" alt="">
+        </article>
+    </template>
+
+    <section class="modtager"></section>
+
+
+
+    <script>
+        const personer = [{
+            "fornavn": "Martin",
+            "efternavn": "Bregnhøi",
+            "email": "mabe@kea.dk",
+            "billede": "http://mabe-kea.dk/martin.jpg"
+        }, {
+            "fornavn": "Klaus",
+            "efternavn": "Mandal",
+            "email": "klmh@kea.dk",
+            "billede": ""
+        }, {
+            "fornavn": "Kamilla",
+            "efternavn": "Viktor",
+            "email": "kvi@kea.dk",
+            "billede": ""
+        }, {
+            "fornavn": "Alan",
+            "efternavn": "Engelhardt",
+            "email": "ale@kea.dk",
+            "billede": ""
+        }]
+
+        const modtagerKloner = document.querySelector(".modtager");
+        const temp = document.querySelector("template");
+
+
+        personer.forEach(person => {
+            const klon = temp.cloneNode(true).content;
+            klon.querySelector("h1").textContent = person.fornavn;
+            klon.querySelector(".email").textContent = person.email;
+            klon.querySelector("img").src = person.billede;
+            modtagerKloner.appendChild(klon);
+
+        })
+
+    </script>
+
+</body>
+
+</html>
