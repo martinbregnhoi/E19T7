@@ -1,0 +1,70 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Bistro Babushka</title>
+    <link type="text/css" href="css/styles.css" rel="stylesheet">
+</head>
+
+<body>
+    popup
+   <div class="popup">
+  <div class="popup-content">
+	  <button>Close</button>
+    <h2 class="single-titel" data-titel>test</h2>
+    <img src="" alt="" class="single-img" data-singleimg>
+    <details open>
+  <summary >Beskrivelse</summary>
+ <p data-beskrivelse>Her står noget tekst</p>
+</details>
+  </div>
+  </div>
+   
+    <header>
+
+        <img src="imgs/red_star.svg" alt="">
+
+    </header>
+    <div class="menu">
+       
+    <button class="burger">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+    </button>
+ 
+        <nav>
+            <button id="filter-alle" data-ret="alle">Alle</button>
+            <button id="filter-forretter" data-ret="forretter">Forretter</button>
+            <button id="filter-hovedretter" data-ret="hovedretter">Hovedretter</button>
+            <button id="filter-desserter" data-ret="desserter">Desserter</button>
+            <button id="filter-drikkevarer" data-ret="drikkevarer">Drikkevarer</button>
+        </nav>
+    </div>
+    <main>
+        <h1 id="overskrift" data-overskrift>Menu</h1>
+        <section id="menu-container" data-container></section>
+    </main>
+    <template data-template>
+        <article data-ret>
+            
+            <img src="xx" alt="" class="info" data-billede>
+            <h2 class="info" data-navn></h2>
+            <p class="info" data-kortbeskrivelse></p> 
+            <p>Pris: <span class="info" data-pris ></span>,-</p>  
+        </article>   
+    </template>
+
+    <footer>
+        <section><address>Addresse: <br>Grønnegade 97<br>1234 København K </address>
+            <aside>Åbningstider: <br> Mandag – fredag 10:30 – 22:00<br>Lørdag 12:00 – 23:00</aside>
+        </section>
+    </footer>
+
+    <script src="js/getJson19.js"></script>
+
+</body>
+
+</html>

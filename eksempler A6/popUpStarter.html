@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
-
-<head>
+    <head>
     <title>Visalle</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -29,14 +28,10 @@
         }
 
         .menu {
-            text-align: left;
+            text-align: center;
             margin-bottom: 20px;
-            margin-left: 20px;
-            
         }
-        button{
-            font-size: 1.5rem;
-        }
+
         .valgt {
             background-color: red;
         }
@@ -45,7 +40,28 @@
             text-align: center;
         }
 
+        #popup {
+            position: fixed;
+            top: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, .7);
+            display: none;
+        }
 
+        .indhold {
+            width: 70vw;
+            min-height: 50vh;
+            background: #fff;
+            margin: 4rem auto;
+            padding: 10px;
+        }
+
+        .luk {
+            position: fixed;
+            right: 0;
+            font-size: 2rem;
+        }
     </style>
 </head>
 
@@ -57,16 +73,24 @@
             <p>Github: <a class="github" href=""></a></p>
         </article>
     </template>
+    <div id="popup">
+        <button class="luk">X</button>
+        <section class="indhold">
+            <article class="enkeltPerson">
+                <h2></h2>
+                <img class="billede" src="" alt="">
+                <p>Github: <a class="github" href=""></a></p>
+                <p class="historie"></p>
+            </article>
+        </section>
+    </div>
     <h1>Alle</h1>
     <nav class="menu">
-        <h2>Køn</h2>
-        <button class="filter valgt" data-køn="alle">Alle</button>
-        <button class="filter" data-køn="k">Kvinder</button>
-        <button class="filter" data-køn="m">Mænd</button>
-        <button class="filter" data-køn="andet">Andet</button>
-        <h2>Hold</h2>
-        <button class="filter-hold" data-hold="a">hold A</button>
-        <button class="filter-hold" data-hold="b">hold B</button>
+        <button class="filter valgt" data-køn="alle" data-hold="alle">Alle</button>
+        <button class="filter" data-køn="k" data-hold="alle">Kvinder</button>
+        <button class="filter" data-køn="m" data-hold="alle">Mænd</button>
+        <button class="filter" data-køn="andet" data-hold="alle">Andet</button>
+        <button class="filter" data-køn="m" data-hold="a">Mænd på hold A</button>
     </nav>
 
     <section id="liste"></section>
@@ -78,7 +102,6 @@
         const theTemplatePointer = document.querySelector("#theTemplate");
         let filterKøn = "alle";
         let filterHold = "alle";
-
         document.addEventListener("DOMContentLoaded", getJson);
 
 
@@ -91,7 +114,6 @@
 
         function visPersoner() {
             dest.innerHTML = "";
-
             personer.feed.entry.forEach(person => {
                 if ((filterKøn == "alle" || filterKøn == person.gsx$køn.$t) && (filterHold == "alle" || filterHold == person.gsx$hold.$t)) {
                     const theClone = theTemplatePointer.cloneNode(true).content;
@@ -102,59 +124,49 @@
                     theClone.querySelector(".github").textContent = `http://github.com/${person.gsx$github.$t}`;
 
                     dest.appendChild(theClone);
-                    dest.lastElementChild.addEventListener("click", () => {
-                        location.href = `singleView.html?github=${person.gsx$github.$t}`;
-                    });
+                    dest.lastElementChild.addEventListener("click", ()=>{ visSingle(person) });
                 }
             })
         }
 
+        function visSingle(person) {
 
+            document.querySelector("#popup").style.display = "block";
+            document.querySelector("#popup .luk").addEventListener("click", lukSingle);
+            
+            document.querySelector(".enkeltPerson h2").textContent = person.gsx$navn.$t;
+            document.querySelector(".enkeltPerson .billede").src = person.gsx$billede.$t;
+            document.querySelector(".enkeltPerson .billede").alt = person.gsx$navn.$t;
+            document.querySelector(".enkeltPerson .github").href = `http://github.com/${person.gsx$github.$t}`;
+            document.querySelector(".enkeltPerson .github").textContent = `http://github.com/${person.gsx$github.$t}`;
+            document.querySelector(".enkeltPerson .historie").textContent = person.gsx$historie.$t;
 
+        }
+
+        function lukSingle(){
+            document.querySelector("#popup").style.display = "none";
+        }
+        
         function addEventListenersToButtons() {
             document.querySelectorAll(".filter").forEach(elm => {
                 elm.addEventListener("click", filtrering);
             })
-            document.querySelectorAll(".filter-hold").forEach(elm => {
-                elm.addEventListener("click", filtreringHold);
-            })
         }
 
-        function filtrering() {;
-            filterKøn = this.dataset.køn;
+        function filtrering() {
+            filterKøn = this.getAttribute("data-køn");
 
-            if (filterKøn == "alle") {
-                filterHold = "alle";
-                document.querySelectorAll(".filter-hold").forEach(elm => {
-                    elm.classList.remove("valgt");
-                });
-                document.querySelector("h1").textContent = this.textContent;
-            }else{
-                
-                document.querySelector("h1").textContent = this.textContent + " " + filterHold;
-            }
-         
-            //document.querySelector("h1").textContent = this.textContent;
+
+            filterHold = this.getAttribute("data-hold");
+
+
+            document.querySelector("h1").textContent = this.textContent;
             document.querySelectorAll(".filter").forEach(elm => {
                 elm.classList.remove("valgt");
             });
             this.classList.add("valgt");
             visPersoner();
         }
-
-        function filtreringHold() {
-
-            filterHold = this.dataset.hold;
-            let valgtKøn = document.querySelector(".valgt").textContent;
-            document.querySelector("h1").textContent = valgtKøn + " " + filterHold;
-            document.querySelectorAll(".filter-hold").forEach(elm => {
-                elm.classList.remove("valgt");
-            });
-            this.classList.add("valgt");
-            visPersoner();
-        }
-
     </script>
 </body>
-
 </html>
