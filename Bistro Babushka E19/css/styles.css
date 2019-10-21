@@ -101,7 +101,7 @@ nav {
     overflow: hidden;
     transition: 0.6s;
 }
-nav.show {
+.show {
     max-height: 500px;
 }
 

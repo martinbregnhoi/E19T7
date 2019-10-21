@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>GridLayout</title>
+
+    <style>
+
+        *{
+          margin:0;
+        }
+
+        section {
+            min-height: 100px;
+        }
+
+        main {
+
+            height: 100vh;
+            display: grid;
+            grid-gap: 20px;
+            grid-template-rows: 1fr 2fr 1fr;
+            grid-template-areas:
+                "header header header header"
+                "sidebar main main main"
+                "footer footer footer footer";
+
+        }
+
+        .box1 {
+        grid-area: header;
+            background: #ca1;
+        }
+
+        .box2 {
+grid-area: sidebar;
+            background: #123456;
+        }
+
+        .box3 {
+grid-area: main;
+            border: 2px solid #000;
+        }
+
+        .box4 {
+grid-area: footer;
+            background: #f0c;
+        }
+    </style>
+
+</head>
+
+<body>
+    <main>
+        <section class="box1"></section>
+        <section class="box2"></section>
+        <section class="box3"></section>
+        <section class="box4"></section>
+    </main>
+</body></html>

@@ -1,0 +1,26 @@
+
+main{
+    max-width: 960px;
+    margin:0 auto;
+    display:grid;
+    grid-template-columns: repeat(4, 1fr);
+    background: #ca1;
+    grid-gap: .5rem;
+
+}
+article{
+    background: #666;
+    padding:.5rem;
+}
+
+article:nth-child(4n+2){
+    grid-column: span 3;
+    color:#ca1;
+}
+article:nth-child(4n+3){
+    grid-column: span 3;
+    color:#ca1;
+}
+article:first-child, article:last-child{
+    background: #fff;
+}

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>GridLayout</title>
+
+    <style>
+        *{
+            margin:0;
+        }
+        section {
+            min-height: 100px;
+        }
+
+        main {
+            height: 100vh;
+            display: grid;
+            grid-template-rows: 1fr 2fr 1fr;
+            grid-gap: 10px;
+        }
+
+        .box1 {
+
+            background: #ca1;
+        }
+
+        .box2 {
+
+            background: #123456;
+        }
+
+        .box3 {
+
+            border: 2px solid #000;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-gap:10px;
+            background: green;
+            padding:10px;
+        }
+
+        article {
+            background: #2299ff;
+            min-height: 50px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <main>
+        <section class="box1"></section>
+        <section class="box3">
+            <article></article>
+            <article></article>
+            <article></article>
+            <article></article>
+            <article></article>
+            <article></article>
+            <article></article>
+            <article></article>
+        </section>
+        <section class="box2"></section>
+
+
+    </main>
+</body></html>
